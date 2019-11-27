@@ -101,21 +101,15 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
     <Paper elevation={1} square>
       <Grid container direction="row">
         <Grid>
-          <Grid container className={classes.header} alignItems="center">
+          {/* <Grid container className={classes.header} alignItems="center">
             <Grid item className={classes.headerItem}>
               Start Date
-              {/* <Typography variant="subtitle1">
-								Start Date
-							</Typography> */}
             </Grid>
             <Grid item className={classes.headerItem}>
               End Date
-              {/* <Typography variant="subtitle1">
-								End Date
-							</Typography> */}
             </Grid>
           </Grid>
-          <Divider />
+          <Divider /> */}
           <Grid
             container
             direction="row"
