@@ -8,6 +8,7 @@ import {
 	withStyles
 } from "@material-ui/core";
 import { combine } from "../utils";
+import { yellow } from "@matharumanpreet00/react-daterange-picker/node_modules/@material-ui/core/colors";
 
 interface DayProps extends WithStyles<typeof styles> {
 	filled?: boolean;
@@ -16,6 +17,9 @@ interface DayProps extends WithStyles<typeof styles> {
 	disabled?: boolean;
 	startOfRange?: boolean;
 	endOfRange?: boolean;
+	isInvalid?: boolean;
+	secondWithinRange?: boolean;
+	secondLastWithinRange?: boolean;
 	onClick?: () => void;
 	onHover?: () => void;
 	value: number | string;
@@ -23,33 +27,62 @@ interface DayProps extends WithStyles<typeof styles> {
 
 const styles = (theme: Theme) =>
 	createStyles({
+		invalid:{
+			backgroundColor: theme.palette.error.light + " !important"
+
+		},
+		secondWithinRange:{
+			borderRadius: "5px 0 0 5px !important",
+			marginTop: 10,
+			padding: "0 8px 0 8px !important"
+		},
+		secondLastWithinRange:{
+			borderRadius: "0 5px 5px 0 !important",
+			marginTop: 10,
+			padding: "0 8px 0 8px !important"
+		},
+		onlyHighlighted:{
+			borderRadius: "5px !important",
+			marginTop: 10,
+			padding: "0 8px 0 8px !important"
+		},
 		leftBorderRadius: {
-			borderRadius: "50% 0 0 50%"
+			borderRadius: "5px 0 0 5px"
+			
 		},
 		rightBorderRadius: {
-			borderRadius: "0 50% 50% 0"
+			borderRadius: "0 5px 5px 0"
 		},
 		buttonContainer: {
 			display: "flex"
 		},
 		button: {
-			height: 36,
-			width: 36,
-			padding: 0
+			height: 28,
+			width: 44,
+			padding: "0 12px",
+			margin: "8px 0"
 		},
 		buttonText: {
 			lineHeight: 1.6
 		},
 		outlined: {
-			border: `1px solid ${theme.palette.primary.dark}`
+			border: `1px solid ${theme.palette.primary.dark}`,
+			width: 32,
+    margin: "8px 6px"
 		},
 		filled: {
 			"&:hover": {
 				backgroundColor: theme.palette.primary.dark
 			},
+			width: 32,
+			margin: "8px 6px",
 			backgroundColor: theme.palette.primary.dark
 		},
 		highlighted: {
+			width: "44px !important",
+			height: "24px !important",
+			margin: "10px 0",
+			borderRadius: 0,
 			backgroundColor: theme.palette.action.hover
 		},
 		contrast: {
@@ -65,13 +98,20 @@ const Day: React.FunctionComponent<DayProps> = props => {
 				classes.buttonContainer,
 				props.startOfRange && classes.leftBorderRadius,
 				props.endOfRange && classes.rightBorderRadius,
-				!props.disabled && props.highlighted && classes.highlighted
+				
+				
 			)}>
 			<IconButton
 				className={combine(
 					classes.button,
 					!props.disabled && props.outlined && classes.outlined,
-					!props.disabled && props.filled && classes.filled
+					!props.disabled && props.filled && classes.filled,
+					!props.disabled && !props.filled && props.highlighted && classes.highlighted,
+					(props.secondWithinRange && !props.secondLastWithinRange) && classes.secondWithinRange,
+					(props.secondLastWithinRange && !props.secondWithinRange) && classes.secondLastWithinRange,
+					props.secondWithinRange && props.secondLastWithinRange && classes.onlyHighlighted,
+					props.isInvalid && classes.invalid
+
 				)}
 				disabled={props.disabled}
 				onClick={props.onClick}

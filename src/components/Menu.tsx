@@ -9,7 +9,7 @@ import {
 	Theme,
 	withStyles
 } from "@material-ui/core";
-import { format, differenceInCalendarMonths } from "date-fns";
+import { format, differenceInCalendarMonths, differenceInCalendarDays, differenceInCalendarYears } from "date-fns";
 import ArrowRightAlt from "@material-ui/icons/ArrowRightAlt";
 import Month from "./Month";
 import DefinedRanges from "./DefinedRanges";
@@ -19,21 +19,32 @@ import { MARKERS } from "..";
 const styles = (theme: Theme) =>
 	createStyles({
 		header: {
-			padding: "20px 70px"
+			padding: "15px 0px 8px"
 		},
 		headerItem: {
 			flex: 1,
-			textAlign: "center"
+			textAlign: "left",
+			fontSize: 12,
+			fontWeight: 500,
+			padding: "0 20px"
 		},
 		divider: {
-			borderLeft: `1px solid ${theme.palette.action.hover}`,
-			marginBottom: 20
+			borderLeft: `1px solid ${theme.palette.action.hover}`
+		},
+		p : {
+			float: "right",
+			padding: "11px 20px",
+			fontSize: "12px !important"
+		},
+		daysLabel: {
+			color: theme.palette.grey[400]
 		}
 	});
 
 interface MenuProps extends WithStyles<typeof styles> {
 	dateRange: DateRange;
 	ranges: DefinedRange[];
+	hoverDay: any;
 	minDate: Date;
 	maxDate: Date;
 	firstMonth: Date;
@@ -43,6 +54,7 @@ interface MenuProps extends WithStyles<typeof styles> {
 	setDateRange: Setter<DateRange>;
 	helpers: {
 		inHoverRange: (day: Date) => boolean;
+		isInvalidRange: (endDate: any, startDate: any) => boolean;
 	};
 	handlers: {
 		onDayClick: (day: Date) => void;
@@ -56,6 +68,7 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
 		classes,
 		ranges,
 		dateRange,
+		hoverDay,
 		minDate,
 		maxDate,
 		firstMonth,
@@ -68,33 +81,34 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
 	} = props;
 	const { startDate, endDate } = dateRange;
 	const canNavigateCloser = differenceInCalendarMonths(secondMonth, firstMonth) >= 2;
-	const commonProps = { dateRange, minDate, maxDate, helpers, handlers };
+	const canNavigateCloserYear = differenceInCalendarMonths(secondMonth, firstMonth) > 12;
+	const commonProps = { hoverDay,dateRange, minDate, maxDate, helpers, handlers };
 	return (
-		<Paper elevation={5} square>
+		<Paper elevation={1} square>
 			<Grid container direction="row" wrap="nowrap">
 				<Grid>
 					<Grid container className={classes.header} alignItems="center">
 						<Grid item className={classes.headerItem}>
-							<Typography variant="subtitle1">
-								{startDate ? format(startDate, "MMMM DD, YYYY") : "Start Date"}
-							</Typography>
+							Start Date
+							{/* <Typography variant="subtitle1">
+								Start Date
+							</Typography> */}
 						</Grid>
 						<Grid item className={classes.headerItem}>
-							<ArrowRightAlt color="action" />
-						</Grid>
-						<Grid item className={classes.headerItem}>
-							<Typography variant="subtitle1">
-								{endDate ? format(endDate, "MMMM DD, YYYY") : "End Date"}
-							</Typography>
+							End Date
+							{/* <Typography variant="subtitle1">
+								End Date
+							</Typography> */}
 						</Grid>
 					</Grid>
 					<Divider />
-					<Grid container direction="row" justify="center" wrap="nowrap">
+					<Grid container direction="row" justify="center" alignItems="flex-start" wrap="nowrap">
 						<Month
 							{...commonProps}
 							value={firstMonth}
 							setValue={setFirstMonth}
 							navState={[true, canNavigateCloser]}
+							navStateYear={[true, canNavigateCloserYear]}
 							marker={MARKERS.FIRST_MONTH}
 						/>
 						<div className={classes.divider} />
@@ -103,19 +117,27 @@ const Menu: React.FunctionComponent<MenuProps> = props => {
 							value={secondMonth}
 							setValue={setSecondMonth}
 							navState={[canNavigateCloser, true]}
+							navStateYear={[canNavigateCloserYear,true]}
 							marker={MARKERS.SECOND_MONTH}
 						/>
 					</Grid>
-				</Grid>
-				<div className={classes.divider} />
-				<Grid>
-					<DefinedRanges
+					<Divider />
+					<Grid>
+					{/* <DefinedRanges
 						selectedRange={dateRange}
 						ranges={ranges}
 						setRange={setDateRange}
-					/>
+					/> */}
+					<Typography className={classes.p}>
+						<span className={classes.daysLabel}>Days: </span>
+						<span>{dateRange.endDate && dateRange.startDate ? differenceInCalendarDays(dateRange.endDate, dateRange.startDate) : 0}</span>
+					</Typography>
 				</Grid>
+				</Grid>
+				
+				
 			</Grid>
+			
 		</Paper>
 	);
 };

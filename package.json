@@ -1,49 +1,110 @@
 {
-	"name": "@matharumanpreet00/react-daterange-picker",
-	"version": "1.0.5",
-	"description": "A react date range picker using Material Design",
-	"author": {
-		"email": "matharumanpreet00@gmail.com",
-		"name": "Manpreet Singh Matharu"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/matharumanpreet00/react-daterange-picker"
-	},
-	"main": "build/index.js",
-	"scripts": {
-		"start": "tsc --watch",
-		"build": "tsc",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"dependencies": {
-		"@material-ui/core": "^3.9.2",
-		"@material-ui/icons": "^3.0.2",
-		"date-fns": "^1.30.1"
-	},
-	"devDependencies": {
-		"@types/react": "^16.8.8",
-		"@types/react-dom": "^16.8.3",
-		"typescript": "^3.3.4"
-	},
-	"peerDependencies": {
-		"@material-ui/core": "^3.9.2",
-		"react": "^16.8.4",
-		"react-dom": "^16.8.4"
-	},
-	"keywords": [
-		"react",
-		"component",
-		"react-components",
-		"date-range",
-		"date",
-		"range",
-		"picker",
-		"material-design",
-		"material",
-		"typescript",
-		"npm",
-		"package"
-	],
-	"license": "MIT"
+  "_args": [
+    [
+      "@matharumanpreet00/react-daterange-picker@1.0.5",
+      "/Users/imac/Desktop/Projects/ssl-git"
+    ]
+  ],
+  "_from": "@matharumanpreet00/react-daterange-picker@1.0.5",
+  "_id": "@matharumanpreet00/react-daterange-picker@1.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-Ol5eeLuwhrOimYqjCx58+5sH+GtikFx7RKiQlh4py68KHxyPWNFYxrSCXdx+mh++3nFJbRQOR0nm7Nky1G78/w==",
+  "_location": "/@matharumanpreet00/react-daterange-picker",
+  "_phantomChildren": {
+    "@babel/runtime": "7.4.4",
+    "@types/jss": "9.5.8",
+    "@types/react-transition-group": "2.9.1",
+    "brcast": "3.0.1",
+    "classnames": "2.2.6",
+    "csstype": "2.6.4",
+    "debounce": "1.2.0",
+    "deepmerge": "3.2.0",
+    "dom-helpers": "3.4.0",
+    "hoist-non-react-statics": "3.3.0",
+    "is-in-browser": "1.1.3",
+    "is-plain-object": "2.0.4",
+    "jss-camel-case": "6.1.0",
+    "jss-default-unit": "8.0.2",
+    "jss-global": "3.0.0",
+    "jss-nested": "6.0.1",
+    "jss-props-sort": "6.0.0",
+    "jss-vendor-prefixer": "7.0.0",
+    "loose-envify": "1.4.0",
+    "normalize-scroll-left": "0.1.2",
+    "popper.js": "1.15.0",
+    "prop-types": "15.7.2",
+    "react-event-listener": "0.6.6",
+    "react-is": "16.8.6",
+    "react-lifecycles-compat": "3.0.4",
+    "recompose": "0.30.0",
+    "symbol-observable": "1.2.0",
+    "warning": "4.0.3"
+  },
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@matharumanpreet00/react-daterange-picker@1.0.5",
+    "name": "@matharumanpreet00/react-daterange-picker",
+    "escapedName": "@matharumanpreet00%2freact-daterange-picker",
+    "scope": "@matharumanpreet00",
+    "rawSpec": "1.0.5",
+    "saveSpec": null,
+    "fetchSpec": "1.0.5"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@matharumanpreet00/react-daterange-picker/-/react-daterange-picker-1.0.5.tgz",
+  "_spec": "1.0.5",
+  "_where": "/Users/imac/Desktop/Projects/ssl-git",
+  "author": {
+    "name": "Manpreet Singh Matharu"
+  },
+  "bugs": {
+    "url": "https://github.com/matharumanpreet00/react-daterange-picker/issues"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
+    "date-fns": "^1.30.1"
+  },
+  "description": "A react date range picker using Material Design",
+  "devDependencies": {
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.3",
+    "typescript": "^3.3.4"
+  },
+  "homepage": "https://github.com/matharumanpreet00/react-daterange-picker#readme",
+  "keywords": [
+    "react",
+    "component",
+    "react-components",
+    "date-range",
+    "date",
+    "range",
+    "picker",
+    "material-design",
+    "material",
+    "typescript",
+    "npm",
+    "package"
+  ],
+  "license": "MIT",
+  "main": "build/index.js",
+  "name": "@matharumanpreet00/react-daterange-picker",
+  "peerDependencies": {
+    "@material-ui/core": "^3.9.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matharumanpreet00/react-daterange-picker.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.5"
 }

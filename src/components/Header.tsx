@@ -5,11 +5,14 @@ import {
 	withStyles,
 	IconButton,
 	Select,
-	MenuItem
+	MenuItem,
+	Typography
 } from "@material-ui/core";
 import React from "react";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ArrowLeft from "@material-ui/icons/ArrowLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
+import ArrowRight from "@material-ui/icons/ArrowRight";
 import { setMonth, getMonth, setYear, getYear } from "date-fns";
 
 interface HeaderProps extends WithStyles<typeof styles> {
@@ -17,16 +20,29 @@ interface HeaderProps extends WithStyles<typeof styles> {
 	setDate: (date: Date) => void;
 	nextDisabled: boolean;
 	prevDisabled: boolean;
+	nextDisabledYear: boolean;
+	prevDisabledYear: boolean;
+	marker: symbol;
 	onClickNext: () => void;
 	onClickPrevious: () => void;
+	onClickNextYear: () => void;
+	onClickPreviousYear: () => void;
 }
 
 const styles = createStyles({
+	root: {
+		color: "#111111",
+		fontSize: 15,
+		"& p": {
+			paddingTop: 7,
+			fontWeight: "bold"
+		}
+	},
 	iconContainer: {
 		padding: 5
 	},
 	icon: {
-		padding: 10,
+		padding: "3px 10px 0",
 		"&:hover": {
 			background: "none"
 		}
@@ -59,11 +75,17 @@ const Header: React.FunctionComponent<HeaderProps> = ({
 	date,
 	classes,
 	setDate,
+	marker,
 	nextDisabled,
 	prevDisabled,
+	nextDisabledYear,
+	prevDisabledYear,
 	onClickNext,
-	onClickPrevious
+	onClickPrevious,
+	onClickNextYear,
+	onClickPreviousYear
 }) => {
+	console.log(marker);
 	const handleMonthChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setDate(setMonth(date, parseInt(event.target.value)));
 	};
@@ -73,17 +95,35 @@ const Header: React.FunctionComponent<HeaderProps> = ({
 	};
 
 	return (
-		<Grid container justify="space-between" alignItems="center">
+		<Grid container justify="space-between" alignItems="center" className={classes.root}>
 			<Grid item className={classes.iconContainer}>
-				<IconButton
-					className={classes.icon}
-					disabled={prevDisabled}
-					onClick={onClickPrevious}>
-					<ChevronLeft color={prevDisabled ? "disabled" : "action"} />
-				</IconButton>
+				{/* {marker.toString() == "Symbol(firstMonth)" &&  */}
+				<React.Fragment>
+					<IconButton
+						className={classes.icon}
+						disabled={prevDisabled}
+						onClick={onClickPreviousYear}>
+						<ArrowLeft color={prevDisabledYear ? "disabled" : "action"} />
+					</IconButton>
+					<IconButton
+						className={classes.icon}
+						disabled={prevDisabled}
+						onClick={onClickPrevious}>
+						<ChevronLeft color={prevDisabled ? "disabled" : "action"} />
+					</IconButton>
+				</React.Fragment>
+				{/* // } */}
 			</Grid>
 			<Grid item>
-				<Select
+				<Typography>
+				{MONTHS[getMonth(date)]} {getYear(date)}
+
+				</Typography>
+				{/* {getMonth(date)}
+				{MONTHS.filter((month, idx) => {
+					return (idx == date)
+				})} */}
+				{/* <Select
 					value={getMonth(date)}
 					onChange={handleMonthChange}
 					MenuProps={{ disablePortal: true }}>
@@ -92,28 +132,24 @@ const Header: React.FunctionComponent<HeaderProps> = ({
 							{month}
 						</MenuItem>
 					))}
-				</Select>
+				</Select> */}
 			</Grid>
 
-			<Grid item>
-				<Select
-					value={getYear(date)}
-					onChange={handleYearChange}
-					MenuProps={{ disablePortal: true }}>
-					{generateYears(date, 30).map(year => (
-						<MenuItem key={year} value={year}>
-							{year}
-						</MenuItem>
-					))}
-				</Select>
-
-				{/* <Typography>{format(date, "MMMM YYYY")}</Typography> */}
-			</Grid>
-			<Grid item className={classes.iconContainer}>
-				<IconButton className={classes.icon} disabled={nextDisabled} onClick={onClickNext}>
-					<ChevronRight color={nextDisabled ? "disabled" : "action"} />
-				</IconButton>
-			</Grid>
+			
+			
+				<Grid item className={classes.iconContainer}>
+					{/* {marker.toString() == "Symbol(secondMonth)" && */}
+						<React.Fragment>
+							<IconButton className={classes.icon} disabled={nextDisabled} onClick={onClickNext}>
+								<ChevronRight color={nextDisabled ? "disabled" : "action"} />
+							</IconButton>
+							<IconButton className={classes.icon} disabled={nextDisabled} onClick={onClickNextYear}>
+								<ArrowRight color={nextDisabledYear ? "disabled" : "action"} />
+							</IconButton>
+						</React.Fragment>
+					{/* } */}
+				</Grid>
+			
 		</Grid>
 	);
 };

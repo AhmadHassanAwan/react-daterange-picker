@@ -1,4 +1,5 @@
 import * as React from "react";
+import { createStyles, WithStyles, withStyles, Theme } from "@material-ui/core";
 import {
 	addMonths,
 	isSameDay,
@@ -8,7 +9,8 @@ import {
 	isSameMonth,
 	addYears,
 	max,
-	min
+	min,
+	differenceInCalendarDays
 } from "date-fns";
 import { DateRange, NavigationAction, DefinedRange } from "./types";
 import Menu from "./components/Menu";
@@ -34,7 +36,21 @@ const getValidatedMonths = (range: DateRange, minDate: Date, maxDate: Date) => {
 	}
 };
 
-interface DateRangePickerProps {
+const styles = (theme: Theme) =>
+	createStyles({
+		header: {
+			padding: "20px 70px"
+		},
+		headerItem: {
+			flex: 1
+		},
+		divider: {
+			borderLeft: `1px solid ${theme.palette.action.hover}`,
+			marginBottom: 20
+		}
+	});
+
+interface DateRangePickerProps extends WithStyles<typeof styles> {
 	open: boolean;
 	initialDateRange?: DateRange;
 	definedRanges?: DefinedRange[];
@@ -99,7 +115,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
 	};
 
 	const onDayClick = (day: Date) => {
-		if (startDate && !endDate && !isBefore(day, startDate)) {
+		if (startDate && !endDate && !isBefore(day, startDate) && !isInvalidRange(day, startDate)) {
 			const newRange = { startDate, endDate: day };
 			onChange(newRange);
 			setDateRange(newRange);
@@ -126,8 +142,14 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
 			}
 		}
 	};
+	
 
 	// helpers
+	const isInvalidRange = (endDate: any, startDate: any) => {
+		// out of 30 to 90 days range
+		return (differenceInCalendarDays(endDate, startDate) <30 || differenceInCalendarDays(endDate, startDate) > 90)
+	}
+
 	const inHoverRange = (day: Date) => {
 		return (startDate &&
 			!endDate &&
@@ -137,7 +159,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
 	};
 
 	const helpers = {
-		inHoverRange
+		inHoverRange, isInvalidRange
 	};
 
 	const handlers = {
@@ -148,6 +170,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
 
 	return open ? (
 		<Menu
+		hoverDay={hoverDay}
 			dateRange={dateRange}
 			minDate={minDateValid}
 			maxDate={maxDateValid}
@@ -164,4 +187,4 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
 };
 
 export { DateRange, DefinedRange } from "./types";
-export const DateRangePicker = DateRangePickerImpl;
+export const DateRangePicker = withStyles(styles)(DateRangePickerImpl);
