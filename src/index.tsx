@@ -64,7 +64,7 @@ interface DateRangePickerProps extends WithStyles<typeof styles> {
   initialDateRange?: DateRange;
   definedRanges?: DefinedRange[];
   minDate?: Date | string;
-  theme: Theme;
+  parentTheme: Theme;
   maxDate?: Date | string;
   onChange: (dateRange: DateRange) => void;
 }
@@ -73,7 +73,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
   const today = new Date();
 
   const {
-    theme,
+    parentTheme,
     open,
     onChange,
     initialDateRange,
@@ -194,7 +194,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
   };
 
   return open ? (
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={parentTheme}>
       <Menu
         hoverDay={hoverDay}
         dateRange={dateRange}
