@@ -4,7 +4,9 @@ import {
   WithStyles,
   withStyles,
   Theme,
-  MuiThemeProvider
+  MuiThemeProvider,
+  withTheme,
+  createMuiTheme
 } from "@material-ui/core";
 import {
   addMonths,
@@ -64,7 +66,7 @@ interface DateRangePickerProps extends WithStyles<typeof styles> {
   initialDateRange?: DateRange;
   definedRanges?: DefinedRange[];
   minDate?: Date | string;
-  parentTheme: Theme;
+  theme: Theme;
   maxDate?: Date | string;
   onChange: (dateRange: DateRange) => void;
 }
@@ -73,7 +75,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
   const today = new Date();
 
   const {
-    parentTheme,
+    theme,
     open,
     onChange,
     initialDateRange,
@@ -194,7 +196,7 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
   };
 
   return open ? (
-    <MuiThemeProvider theme={parentTheme}>
+    <MuiThemeProvider theme={createMuiTheme(theme)}>
       <Menu
         hoverDay={hoverDay}
         dateRange={dateRange}
@@ -214,4 +216,6 @@ const DateRangePickerImpl: React.FunctionComponent<DateRangePickerProps> = props
 };
 
 export { DateRange, DefinedRange } from "./types";
-export const DateRangePicker = withStyles(styles)(DateRangePickerImpl);
+export const DateRangePicker = withTheme()(
+  withStyles(styles)(DateRangePickerImpl)
+);
