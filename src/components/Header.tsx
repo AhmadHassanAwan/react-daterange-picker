@@ -6,7 +6,8 @@ import {
   IconButton,
   Select,
   MenuItem,
-  Typography
+  Typography,
+  Theme
 } from "@material-ui/core";
 import React from "react";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
@@ -28,26 +29,26 @@ interface HeaderProps extends WithStyles<typeof styles> {
   onClickNextYear: () => void;
   onClickPreviousYear: () => void;
 }
-
-const styles = createStyles({
-  root: {
-    color: "#111111",
-    fontSize: 15,
-    "& p": {
-      paddingTop: 7,
-      fontWeight: "bold"
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      color: theme.palette.primary.main,
+      fontSize: 15,
+      "& p": {
+        paddingTop: 7,
+        fontWeight: "bold"
+      }
+    },
+    iconContainer: {
+      padding: 5
+    },
+    icon: {
+      padding: "3px 10px 0",
+      "&:hover": {
+        background: "none"
+      }
     }
-  },
-  iconContainer: {
-    padding: 5
-  },
-  icon: {
-    padding: "3px 10px 0",
-    "&:hover": {
-      background: "none"
-    }
-  }
-});
+  });
 
 const MONTHS = [
   "Jan",
