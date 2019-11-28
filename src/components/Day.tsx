@@ -8,7 +8,6 @@ import {
   withStyles
 } from "@material-ui/core";
 import { combine } from "../utils";
-import { yellow } from "@matharumanpreet00/react-daterange-picker/node_modules/@material-ui/core/colors";
 
 interface DayProps extends WithStyles<typeof styles> {
   filled?: boolean;
